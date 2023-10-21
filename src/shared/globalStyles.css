@@ -1,0 +1,10 @@
+.page-container {
+  width: calc(100% - 100px);
+  height: 100%;
+}
+
+@media screen and (max-width: 400px) {
+  .page-container {
+    width: calc(100% -85px);
+  }
+}

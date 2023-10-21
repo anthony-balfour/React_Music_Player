@@ -7,20 +7,24 @@ import Player from '../Player/player'
 import './home.css'
 
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
+import Sidebar from '../../components/Sidebar/sidebar'
 
-export default function Home() {
+function Home() {
   return (
     <Router>
-      <div className="main">
+      <main className="main">
+        <Sidebar />
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/library" element={<Library />} />
+          <Route path="/" element={<Library />} />
+
           <Route path="/feed" element={<Feed />} />
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/trending" element={<Trending />} />
           <Route path="/player" element={<Player />} />
         </Routes>
-      </div>
+      </main>
     </Router>
   )
 }
+
+export default Home
