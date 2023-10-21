@@ -2,6 +2,6 @@ import React from 'react'
 
 export default function Feed() {
   return (
-    <div>feed</div>
+    <div className='page-container'>feed</div>
   )
 }
