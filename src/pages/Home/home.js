@@ -15,8 +15,13 @@ function Home() {
   const [token, setToken] = useState('');
 
   useEffect(() => {
-    // grabs the hash in the window's location
+    // grabs the hash in the window's locationm which starts with "#access_token="
+    // has the token type and the expires in, all separated by "&"
+    // split will return an array with the access token as the first element
     const hash = window.location.hash;
+    const token = hash.split("&")[0].split("=")[1];
+    window.localStorage.setItem("access-token", token);
+    setToken(token);
   })
   return (
     <Router>
