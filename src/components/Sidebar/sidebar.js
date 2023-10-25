@@ -1,25 +1,38 @@
 import React, { useState, useEffect } from 'react'
 import './sidebar.css'
-import headshot from '../../assets/self-photo.png';
+import headshot from '../../assets/default_headshot_rhaenyra.jpg';
 import { SidebarButton } from '../sidebarButtons/sidebarButton';
 import { MdFavorite } from "react-icons/md";
 import { FaGripfire, FaPlay } from "react-icons/fa";
 import { FaSignOutAlt } from "react-icons/fa";
 import { IoLibrary } from "react-icons/io5";
 import { MdSpaceDashboard } from "react-icons/md";
+import apiClient from '../../spotify';
 
 export default function Sidebar() {
 
   // grabbing user icon from Spotify Profile calling API
 
-  const [image, setImage] = useState({headshot});
+  const [icon, setIcon] = useState(headshot);
+
+
 
   useEffect(() => {
-
+    // me gives the currently logged in user with the current access token
+    apiClient.get("me")
+      .then(response => {
+      if (response.data.images[0]) {
+        setIcon(response.data.images[0].url)
+      }
+    })
+    .catch(response => {
+      setIcon(headshot);
+    })
   }, [])
+
   return (
     <div className="sidebar-container">
-      <img className="profile-img" alt="profile headshot" src={image}></img>
+      <img className="profile-img" alt="profile headshot" src={icon}></img>
 
       <section>
         <SidebarButton title="Feed" to="/feed" icon={<MdSpaceDashboard />}/>

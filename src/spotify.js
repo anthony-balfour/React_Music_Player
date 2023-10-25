@@ -23,7 +23,7 @@ const apiClient = axios.create({
 // token is required for every call, target in the headers
 // will save the token as the permanent header for every api call
 export const setClientToken = (token) => {
-  apiClient.interceptors.request.use(async function(config) {
+  apiClient.interceptors.request.use(async function (config) {
     config.headers.Authorization = "Bearer " + token;
     return config;
   })

@@ -19,7 +19,6 @@ function Home() {
 
     let token = window.localStorage.getItem("access-token");
     const hash = window.location.hash;
-
     // clearing the hash since it's saved in local
     window.location.hash="";
     if (!token && hash) {
@@ -29,6 +28,7 @@ function Home() {
       setClientToken(token);
     } else {
       setToken(token);
+      setClientToken(token);
     }
     // grabs the hash in the window's locationm which starts with "#access_token="
     // has the token type and the expires in, all separated by "&"
