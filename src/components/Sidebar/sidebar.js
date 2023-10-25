@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import './sidebar.css'
 import headshot from '../../assets/self-photo.png';
 import { SidebarButton } from '../sidebarButtons/sidebarButton';
@@ -9,9 +9,17 @@ import { IoLibrary } from "react-icons/io5";
 import { MdSpaceDashboard } from "react-icons/md";
 
 export default function Sidebar() {
+
+  // grabbing user icon from Spotify Profile calling API
+
+  const [image, setImage] = useState({headshot});
+
+  useEffect(() => {
+
+  }, [])
   return (
     <div className="sidebar-container">
-      <img className="profile-img" alt="profile headshot" src={headshot}></img>
+      <img className="profile-img" alt="profile headshot" src={image}></img>
 
       <section>
         <SidebarButton title="Feed" to="/feed" icon={<MdSpaceDashboard />}/>

@@ -9,6 +9,7 @@ import { Login } from '../Login/login'
 
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import Sidebar from '../../components/Sidebar/sidebar'
+import { setClientToken } from '../../spotify'
 
 function Home() {
 
@@ -25,6 +26,7 @@ function Home() {
       token = hash.split("&")[0].split("=")[1];
       window.localStorage.setItem("access-token", token);
       setToken(token);
+      setClientToken(token);
     } else {
       setToken(token);
     }
