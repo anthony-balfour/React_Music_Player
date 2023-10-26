@@ -1,0 +1,8 @@
+.library-body {
+  width: 100%;
+  height: 100%;
+  padding: 3%;
+  display: flex;
+  flex-wrap: wrap;
+
+}
