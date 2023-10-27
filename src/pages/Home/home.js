@@ -15,6 +15,8 @@ function Home() {
 
   const [token, setToken] = useState('');
 
+  // grabbing the access token if it's not already in local storage
+  // if it is in local storage, the token is set to the API headers for every call
   useEffect(() => {
 
     let token = window.localStorage.getItem("access-token");

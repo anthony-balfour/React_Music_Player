@@ -11,14 +11,16 @@ import apiClient from '../../spotify';
 
 export default function Sidebar() {
 
-  // grabbing user icon from Spotify Profile calling API
+
 
   const [icon, setIcon] = useState(headshot);
 
 
-
+  // grabbing user icon from Spotify Profile calling API
+  // setting the user icon at the top of the sidebar
+  // if not available sets the icon to the default headshot
   useEffect(() => {
-    // me gives the currently logged in user with the current access token
+    // "me" gives the currently logged in user with the current access token
     apiClient.get("me")
       .then(response => {
       if (response.data.images[0]) {

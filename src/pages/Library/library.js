@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import apiClient from '../../spotify'
+import spotify from '../../assets/spotify.jpg';
 import './library.css';
 
 export default function Library() {
@@ -16,8 +17,14 @@ export default function Library() {
     <div className='page-container'>
       <main className='library-body'>
         {playlists?.map((playlist) => {
+
+          const image = playlist.images[0] ? playlist.images[0].url : spotify;
           console.log(playlist);
-          return <div>{playlist.name}</div>
+          return <div className="playlist-card">
+            <img src={image} className="playlist-image" alt="Playlist Art" />
+            <p>{playlist.name}</p>
+            <p>{playlist.tracks.total} Songs</p>
+          </div>
         })}
       </main>
     </div>
