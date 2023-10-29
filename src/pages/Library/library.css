@@ -39,9 +39,12 @@
   font-weight: 800;
   font-size: 16px;
   color: #c4d0e3;
-  margin: 10px 0px 0px;
+  margin: 10px 0px 10px;
 }
 
 .playlist-subtitle {
-
+  font-weight: 400;
+  font-size: 12px;
+  margin: 0px;
+  color: #c4d0e37c;
 }
