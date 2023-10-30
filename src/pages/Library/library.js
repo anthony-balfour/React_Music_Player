@@ -17,6 +17,9 @@ export default function Library() {
     .then(response => {
       setPlaylists(response.data.items);
     })
+    .catch(() => {
+      window.localStorage.removeItem("access-token");
+    })
   }, []);
 
   const navigate = useNavigate();

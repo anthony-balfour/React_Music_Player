@@ -2,6 +2,8 @@ import React from 'react'
 
 export default function Trending() {
   return (
-    <div className='page-container'>trending</div>
+    <div className='page-container'>
+      
+    </div>
   )
 }
