@@ -7,11 +7,17 @@
 
   /* used https://www.magicpattern.design/tools/css-backgrounds */
   opacity: 1;
-  background-image:  repeating-radial-gradient( circle at center left, transparent 0, #1E2A3E 100px ), repeating-linear-gradient( #23365655, #233656 );
+  background-image:
+    repeating-radial-gradient( circle at center left, transparent 0, #1E2A3E 100px ),
+    repeating-linear-gradient( #23365655, #233656 );
 }
 
 @media screen and (max-width: 400px) {
   .page-container {
     width: calc(100% -85px);
   }
+}
+
+.flex {
+  display: flex;
 }

@@ -27,13 +27,13 @@ export default function Player() {
         .then(response => {
           setTracks(response.data.items);
           // using response from Spotify API to play current track
-          setCurrentTrack(response.data.items ? response.data.items[0].track : []);
+          setCurrentTrack(response.data.items[0] ? response.data.items[0].track : []);
           console.log(response);
         })
     }
   }, [location.state]);
   return (
-    <div className='page-container'>
+    <div className='page-container flex' >
 
       {/* widget holder */}
       <section className="left-player-body">
@@ -42,7 +42,7 @@ export default function Player() {
 
       {/* album info section and queue */}
       <section className="right-player-body">
-        <SongCard />
+        <SongCard album={currentTrack.album}/>
         <Queue />
       </section>
     </div>
