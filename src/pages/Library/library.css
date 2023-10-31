@@ -6,12 +6,13 @@
   flex-wrap: wrap;
   /* whenever there are too many playlsits it will add scroll feature */
   overflow-y: auto;
-  justify-content: space-between;
+  gap: 25px;
+
 }
 
 .playlist-card {
   width: 15%;
-  height: 35%;
+  height: 40%;
   border-radius: 20px;
   border: 1px solid rgba(54, 69, 98, 0.18);
   background-color: rgb(30, 42, 62);

@@ -19,6 +19,7 @@ export default function Library() {
     })
     .catch(() => {
       window.localStorage.removeItem("access-token");
+      window.location.reload();
     })
   }, []);
 
