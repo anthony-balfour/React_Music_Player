@@ -5,7 +5,7 @@ export const AlbumImage = ({url}) => {
   console.log(url);
   return (
     <div>
-      <article className='albumImage'>
+      <article className='albumImage-container flex'>
         <img src={url} alt="album art" className="albumImage-art"/>
 
         {/* glassmorphism */}

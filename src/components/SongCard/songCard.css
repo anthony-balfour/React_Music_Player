@@ -4,4 +4,7 @@
   background-color: #27354D;
   border-radius: 30px;
   border-bottom-right-radius: 0px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }

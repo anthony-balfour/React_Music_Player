@@ -11,7 +11,7 @@ export const SongCard = ({album}) => {
 
   return (
 
-    <article className="songCard-body">
+    <article className="songCard-body flex">
       <AlbumImage url={album?.images[0]?.url} />
       <AlbumInfo album={album}/>
     </article>
