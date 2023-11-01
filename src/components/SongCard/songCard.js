@@ -12,7 +12,7 @@ export const SongCard = ({album}) => {
   return (
 
     <article className="songCard-body flex">
-      <AlbumImage url={album.images? album.images[0].url : spotify} />
+      <AlbumImage url={album ? album.images[0].url : spotify} />
       <AlbumInfo album={album}/>
     </article>
   )

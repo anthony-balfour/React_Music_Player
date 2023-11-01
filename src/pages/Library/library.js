@@ -32,8 +32,8 @@ export default function Library() {
     <div className='page-container'>
       <main className='library-body'>
         {playlists?.map((playlist) => {
-
-          const image = playlist.images[0] ? playlist.images[0].url : spotify;
+          console.log(playlist);
+          const image = playlist.images.length > 0 ? playlist.images[0].url : spotify;
           return <div className="playlist-card" key={playlist.id} onClick={() => playPlaylist(playlist.id)}>
             <img src={image}
             className="playlist-image" alt="Playlist Art" />
