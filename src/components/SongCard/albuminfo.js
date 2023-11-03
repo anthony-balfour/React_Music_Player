@@ -11,15 +11,15 @@ export default function AlbumInfo({album}) {
     })
   }
   return (
-    <div>
-      <section className="abumName-container">
+    <div className="albumInfo-card">
+      <section className="albumName-container">
         <p>{album ? album.name + " - " + artists?.join(", ") : ""}</p>
       </section>
       <section className="album-info">
-        <p></p>
+        <p>{`${album?.name} is an ${album?.album_type} with ${album?.total_tracks} track(s)`}</p>
       </section>
       <section className="album-release">
-        <p></p>
+        <p>Release Date: {album?.release_date}</p>
       </section>
     </div>
   )

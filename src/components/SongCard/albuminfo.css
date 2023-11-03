@@ -1,0 +1,28 @@
+/* Styling for the album information under the album image on the Player page */
+
+.albumInfo-card {
+  margin-top: 20px;
+}
+
+.albumInfo-card p {
+  margin: 5px auto !important;
+}
+
+.albumName-container {
+  font-size: 20px;
+  font-weight: 700;
+  color: #C3D0E3;
+}
+
+.album-info {
+  font-size: 14px;
+  font-weight: 500;
+  color: #C3D0E3;
+}
+
+.album-release {
+  font-size: 12px;
+  font-weight: 400;
+  color: #C3D0E3;
+  margin-top: 10px;
+}
