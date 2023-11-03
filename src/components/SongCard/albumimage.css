@@ -4,6 +4,7 @@
   justify-content: center;
   position: relative;
   z-index: 1;
+  outline: 1px solid lightblue;
 }
 
 .albumImage-container img {
@@ -17,7 +18,7 @@
   filter: blur(10px);
   position: absolute;
   width: 90%;
-  top: 25px;
+  top: 20px;
   z-index: -1;
 }
 

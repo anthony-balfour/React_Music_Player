@@ -3,6 +3,16 @@ import './albuminfo.css';
 
 export default function AlbumInfo() {
   return (
-    <div>albuminfo</div>
+    <div>
+      <section className="abumName-container">
+        <p></p>
+      </section>
+      <section className="album-info">
+        <p></p>
+      </section>
+      <section className="album-release">
+        <p></p>
+      </section>
+    </div>
   )
 }
