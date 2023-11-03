@@ -21,6 +21,7 @@ export default function Player() {
   // it will be present if clicked on from library
   useEffect(() => {
     if (location.state) {
+
       // if location.state is null, this code will evaluate to undefined
       // and will not crash the app
       apiClient.get("playlists/" + location.state?.id + "/tracks")
@@ -28,7 +29,6 @@ export default function Player() {
           setTracks(response.data.items);
           // using response from Spotify API to play current track
           setCurrentTrack(response.data.items[0] ? response.data.items[0].track : []);
-          console.log(response);
         })
     }
   }, [location.state]);

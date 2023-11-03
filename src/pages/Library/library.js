@@ -31,9 +31,10 @@ export default function Library() {
   return (
     <div className='page-container'>
       <main className='library-body'>
+
         {playlists?.map((playlist) => {
-          console.log(playlist);
           const image = playlist.images.length > 0 ? playlist.images[0].url : spotify;
+
           return <div className="playlist-card" key={playlist.id} onClick={() => playPlaylist(playlist.id)}>
             <img src={image}
             className="playlist-image" alt="Playlist Art" />
@@ -46,6 +47,7 @@ export default function Library() {
             </div>
           </div>
         })}
+        
       </main>
     </div>
   )
