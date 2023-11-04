@@ -1,3 +1,5 @@
+// The image of the album on the Album Card on the Player page
+
 import React from 'react'
 import './albumimage.css';
 

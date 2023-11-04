@@ -1,3 +1,5 @@
+// The info the album on the Album Card on the Player page
+
 import React from 'react'
 import './albuminfo.css';
 

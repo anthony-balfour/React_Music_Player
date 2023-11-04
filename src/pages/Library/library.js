@@ -1,3 +1,6 @@
+// Lists all of the playlists in the user's Spotify Library
+
+
 import React, { useState, useEffect } from 'react'
 import apiClient from '../../spotify'
 import spotify from '../../assets/spotify.jpg';
@@ -47,7 +50,7 @@ export default function Library() {
             </div>
           </div>
         })}
-        
+
       </main>
     </div>
   )
