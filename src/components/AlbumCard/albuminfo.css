@@ -10,9 +10,27 @@
 }
 
 .albumName-container {
+  width: 100%;
+  overflow: hidden;
   font-size: 20px;
   font-weight: 700;
   color: #C3D0E3;
+}
+
+.marquee {
+  white-space: nowrap;
+  display: inline-block;
+  animation: marquee 12s linear infinite;
+  padding-left: 100%;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0)
+  }
+  100% {
+    transform: translateX(-100%);
+  }
 }
 
 .album-info {

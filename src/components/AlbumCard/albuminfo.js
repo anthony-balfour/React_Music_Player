@@ -14,7 +14,10 @@ export default function AlbumInfo({album}) {
   return (
     <div className="albumInfo-card">
       <section className="albumName-container">
-        <p>{album ? album.name + " - " + artists?.join(", ") : ""}</p>
+        {/* text is in banner mode if overflows container, marquee technique */}
+        <div className="marquee">
+          <p>{album ? album.name + " - " + artists?.join(", ") : ""}</p>
+        </div>
       </section>
       <section className="album-info">
         <p>{`${album?.name} is an ${album?.album_type} with ${album?.total_tracks} track(s)`}</p>
