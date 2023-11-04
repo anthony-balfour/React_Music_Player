@@ -2,7 +2,6 @@ import React from 'react'
 import './albuminfo.css';
 
 export default function AlbumInfo({album}) {
-  console.log(album);
 
   const artists = [];
   if (album) {

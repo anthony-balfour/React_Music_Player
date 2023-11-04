@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './player.css';
 import { useLocation } from 'react-router-dom';
 import apiClient from '../../spotify';
-import { SongCard } from '../../components/SongCard/songCard';
+import { AlbumCard } from '../../components/SongCard/albumCard';
 import { Queue } from '../../components/Queue/queue';
 
 export default function Player() {
@@ -42,7 +42,7 @@ export default function Player() {
 
       {/* album info section and queue */}
       <section className="right-player-body">
-        <SongCard album={currentTrack.album}/>
+        <AlbumCard album={currentTrack.album}/>
         <Queue />
       </section>
     </div>
