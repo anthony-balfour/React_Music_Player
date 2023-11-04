@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './player.css';
 import { useLocation } from 'react-router-dom';
 import apiClient from '../../spotify';
-import { AlbumCard } from '../../components/SongCard/albumCard';
+import { AlbumCard } from '../../components/AlbumCard/albumCard';
 import { Queue } from '../../components/Queue/queue';
 
 export default function Player() {
