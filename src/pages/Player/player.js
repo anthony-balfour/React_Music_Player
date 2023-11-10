@@ -1,3 +1,6 @@
+// player page which handles music selected from the library
+// The right body contains album information of the selected song
+
 import React, { useEffect, useState } from 'react'
 import './player.css';
 import { useLocation } from 'react-router-dom';
