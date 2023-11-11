@@ -1,6 +1,6 @@
 // The albumCard is the on the right body of the Player page, which contains
 // album information
-// contains album, album image, date released
+// contains album information, album image, date released
 
 import React from 'react'
 import './albumCard.css';

@@ -1,5 +1,7 @@
 // Lists all of the playlists in the user's Spotify Library
-
+// Initially is a login page for Spotify to grab user access token
+// if the user access token expires (after over an hour or so), whenever the page
+// is reloaded or changed, the page will redirect to the spotify login
 
 import React, { useState, useEffect } from 'react'
 import apiClient from '../../spotify'

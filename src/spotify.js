@@ -1,4 +1,7 @@
-// handles communication with the Spotify API
+// Handles communication with the Spotify API
+// Uses scopes to determine what is available to the client accessing the API
+// Requires
+
 import axios from "axios";
 
 const authEndpoint = "https://accounts.spotify.com/authorize?";
