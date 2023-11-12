@@ -1,5 +1,8 @@
 // player page which handles music selected from the library
 // The right body contains album information of the selected song
+// grabs album state from the useNavigate hook from the Library Page
+// Saves the track and setCurrentTrack using useState
+
 
 import React, { useEffect, useState } from 'react'
 import './player.css';
