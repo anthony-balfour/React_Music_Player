@@ -35,3 +35,7 @@ and is flex display */
   text-align: start;
   margin: 10px 0px;
 }
+
+.queue-list {
+  height: 80%;
+}
