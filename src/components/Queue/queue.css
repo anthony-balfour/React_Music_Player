@@ -36,6 +36,15 @@ and is flex display */
   margin: 10px 0px;
 }
 
+
+/* scrolls if the height exceeds 80% */
 .queue-list {
   height: 80%;
+  width: 100%;
+  overflow-y: auto;
+}
+
+.track-name {
+  width: 75%;
+  text-overflow: ellipses;
 }
