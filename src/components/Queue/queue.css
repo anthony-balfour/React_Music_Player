@@ -44,6 +44,9 @@ and is flex display */
   overflow-y: auto;
 }
 
+.queue-item {
+  width: 100%;
+}
 .track-name {
   width: 75%;
   text-overflow: ellipses;

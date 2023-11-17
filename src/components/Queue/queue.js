@@ -12,7 +12,7 @@ export const Queue = ({ tracks, setCurrentIndex}) => {
         <div className="queue-list">
           {
           tracks?.map(track => {
-            <div>
+            <div className="queue-item">
               <p className="track-name">{track?.track.name}</p>
               <p></p>
             </div>
