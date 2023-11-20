@@ -45,8 +45,17 @@ and is flex display */
 }
 
 .queue-item {
+  justify-content: space-between;
   width: 100%;
+  /* top bottom left right */
+  padding: 4px 0px;
+  font-size: 12px;
 }
+
+.queue-item p {
+  margin: 0px;
+}
+
 .track-name {
   width: 75%;
   text-overflow: ellipses;
