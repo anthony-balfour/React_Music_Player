@@ -49,7 +49,7 @@ export default function Player() {
       {/* album info section and queue */}
       <section className="right-player-body">
         <AlbumCard album={currentTrack.album}/>
-        <Queue />
+        <Queue tracks={tracks} setCurrentIndex={setCurrentIndex}/>
       </section>
     </div>
   )

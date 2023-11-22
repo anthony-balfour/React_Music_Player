@@ -11,12 +11,13 @@ export const Queue = ({ tracks, setCurrentIndex}) => {
         <p className="upNext">Up Next</p>
         <div className="queue-list">
           {
-          tracks?.map(track => {
-            <div className="queue-item flex">
-              <p className="track-name">{track?.track.name}</p>
-              <p></p>
-            </div>
-          })
+          tracks?.map((track) => {
+            return (
+              <div className="queue-item flex">
+                <p className="track-name">{track?.track?.artists[0]?.name} - {track?.track?.name} </p>
+                <p></p>
+              </div>
+            )})
           }
         </div>
       </div>
