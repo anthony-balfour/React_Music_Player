@@ -11,11 +11,11 @@ export const Queue = ({ tracks, setCurrentIndex}) => {
         <p className="upNext">Up Next</p>
         <div className="queue-list">
           {
-          tracks?.map((track) => {
+          tracks?.map((track, index) => {
             return (
-              <div className="queue-item flex">
+              <div className="queue-item flex" onClick={() => setCurrentIndex(index)}>
                 <p className="track-name">{track?.track?.artists[0]?.name} - {track?.track?.name} </p>
-                <p></p>
+                <p>0:30</p>
               </div>
             )})
           }

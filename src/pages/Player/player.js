@@ -23,7 +23,7 @@ export default function Player() {
   // used for navigating tracks
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // making API call if state of playlist id is present,
+  // making API call if state of playlist id, grabbed from the library, is present,
   // it will be present if clicked on from library
   useEffect(() => {
     if (location.state) {
@@ -38,6 +38,13 @@ export default function Player() {
         })
     }
   }, [location.state]);
+
+  // to change the current track in the Player
+
+  useEffect(() => {
+    setCurrentTrack(tracks[currentIndex]?.track)
+  }, [currentIndex, tracks]);
+
   return (
     <div className='page-container flex' >
 
@@ -48,7 +55,7 @@ export default function Player() {
 
       {/* album info section and queue */}
       <section className="right-player-body">
-        <AlbumCard album={currentTrack.album}/>
+        <AlbumCard album={currentTrack?.album}/>
         <Queue tracks={tracks} setCurrentIndex={setCurrentIndex}/>
       </section>
     </div>
