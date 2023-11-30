@@ -44,6 +44,11 @@ and is flex display */
   overflow-y: auto;
 }
 
+/* hides the queue scrollbar itself */
+.queue-list::-webkit-scrollbar {
+  display: none;
+}
+
 .queue-item {
   justify-content: space-between;
   width: 100%;

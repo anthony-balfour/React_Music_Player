@@ -3,13 +3,13 @@
 // grabs album state from the useNavigate hook from the Library Page
 // Saves the track and setCurrentTrack using useState
 
-
 import React, { useEffect, useState } from 'react'
 import './player.css';
 import { useLocation } from 'react-router-dom';
 import apiClient from '../../spotify';
 import { AlbumCard } from '../../components/AlbumCard/albumCard';
 import { Queue } from '../../components/Queue/queue';
+import AudioPlayer from '../../components/AudioPlayer/audioPlayer';
 
 export default function Player() {
 
@@ -40,7 +40,8 @@ export default function Player() {
   }, [location.state]);
 
   // to change the current track in the Player
-
+  // anytime currentIndex changes, automatically change current track
+  // to that index
   useEffect(() => {
     setCurrentTrack(tracks[currentIndex]?.track)
   }, [currentIndex, tracks]);
@@ -50,7 +51,7 @@ export default function Player() {
 
       {/* widget holder */}
       <section className="left-player-body">
-
+        <AudioPlayer currentTrack={currentTrack}/>
       </section>
 
       {/* album info section and queue */}
