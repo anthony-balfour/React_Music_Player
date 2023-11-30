@@ -6,6 +6,8 @@ import axios from "axios";
 
 const authEndpoint = "https://accounts.spotify.com/authorize?";
 const clientID = '57de4d20e70c4d98be37d1a540cfbdcd';
+
+// where the user will be redirected after logging into the spotify api
 const redirectUri = "http://localhost:3000";
 
 // scopes - only what is being used will be shared?
@@ -25,6 +27,7 @@ const apiClient = axios.create({
 
 // token is required for every call, target in the headers
 // will save the token as the permanent header for every api call
+// interceptors modify reuqests before being handled by application
 export const setClientToken = (token) => {
   apiClient.interceptors.request.use(async function (config) {
     config.headers.Authorization = "Bearer " + token;
