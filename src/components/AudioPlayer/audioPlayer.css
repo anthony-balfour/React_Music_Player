@@ -1,0 +1,16 @@
+.player-body {
+  width: 100%;
+  height: 44%;
+  margin: 3% 0%;
+  outline: 1px solid blue;
+}
+
+.player-left-body {
+  outline: 4px solid teal;
+  width: 37%
+}
+
+.player-right-body {
+  width: 63%;
+  outline: 3px solid orange;
+}

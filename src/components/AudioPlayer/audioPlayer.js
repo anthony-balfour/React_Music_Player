@@ -1,4 +1,4 @@
-/**, left body will have  a Progress Circle component, right body will have name and controls
+/**, left body will have  a Progress Circle component, right body will have track name and controls
  * Two sections, left body and right body of the AudioPlayer
  * current track prop to get track info such as image to display while playing
  *
@@ -6,12 +6,13 @@
 
 import React from 'react'
 import './audioPlayer.css'
+import ProgressCircle from '../ProgressCircle/progressCircle';
 
 
 export default function AudioPlayer({currentTrack}) {
   console.log(currentTrack);
   return (
-    <article className="player-body">
+    <article className="player-body flex">
 
       <section className="player-left-body">
         {/**
@@ -23,7 +24,7 @@ export default function AudioPlayer({currentTrack}) {
         <ProgressCircle
           percentage = {75}
           isPlaying={true}
-          image={currentTrack.images[0]?.url}
+          image={currentTrack?.album?.images[0]?.url}
           size={300}
           color={"#C96850"}
         />
