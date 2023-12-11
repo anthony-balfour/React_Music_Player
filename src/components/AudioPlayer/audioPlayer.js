@@ -1,4 +1,5 @@
-/**, left body will have  a Progress Circle component, right body will have track name and controls
+/** The left body section of the Player page,
+ * Left body of the audioPlayer will have  a Progress Circle component, right body will have track name and controls
  * Two sections, left body and right body of the AudioPlayer
  * current track prop to get track info such as image to display while playing
  *
@@ -10,7 +11,7 @@ import ProgressCircle from '../ProgressCircle/progressCircle';
 
 
 export default function AudioPlayer({currentTrack}) {
-  console.log(currentTrack);
+
   return (
     <article className="player-body flex">
 
