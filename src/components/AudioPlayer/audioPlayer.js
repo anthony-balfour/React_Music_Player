@@ -12,7 +12,7 @@ import WaveAnimation from '../WaveAnimation/waveAnimation';
 import Controls from '../Controls/controls';
 
 
-export default function AudioPlayer({currentTrack}) {
+export default function AudioPlayer({currentTrack, isPlaying}) {
   const artists = [];
   currentTrack?.album?.artists.forEach((artist) => {
     artists.push(artist.name);
@@ -47,7 +47,7 @@ export default function AudioPlayer({currentTrack}) {
         <section className="player-right-body-bottom flex">
           <section className="song-duration flex" >
             <p className="duration">0:01</p>
-            <WaveAnimation />
+            <WaveAnimation isPlaying={isPlaying}/>
             <p className="duration">0:30</p>
           </section>
           <Controls
@@ -59,7 +59,7 @@ export default function AudioPlayer({currentTrack}) {
           />
         </section>
       </section>
-      
+
     </article>
   )
 }

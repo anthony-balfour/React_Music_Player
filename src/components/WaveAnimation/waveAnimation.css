@@ -1,0 +1,11 @@
+/* //adjust box container height for mobile */
+
+.box-container {
+  justify-content: space-between;
+  /* adjust for mobiel */
+  height: 54px;
+  /* css variable */
+  --boxSize: 4px;
+  --gutter: 8px;
+  width: calc((var(--boxSize) + var(--gutter)) * 13);
+}
