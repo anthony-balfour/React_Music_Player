@@ -1,3 +1,6 @@
+// Progress Circle component which is rendered on the Player page in the left body
+// represents the progress of the current track to its end time
+
 import React from 'react'
 import './progressCircle.css'
 
@@ -5,9 +8,12 @@ import './progressCircle.css'
 const Circle = ({color, percentage, size, strokeWidth}) => {
   // stroke for outer circle
   const radius = (size / 2) - 10;
-  const circ = ((2 * Math.PI * radius) - 20)
-  // percentage of song played
-  const strokePct =  ((100 - Math.round(percentage) * circ)) / 100;
+
+  // circumference
+  const circ = 2 * Math.PI * radius - 20
+
+  // percentage of song played, representing as part of a circle
+  const strokePct =  (100 - Math.round(percentage) * circ) / 100;
 
   // creates an svg circle with various properties
   return (
@@ -17,10 +23,14 @@ const Circle = ({color, percentage, size, strokeWidth}) => {
       cx="50%"
       cy="50%"
       fill = "transparent"
-      stroke = {strokePct != circ ? color : ""}
+      stroke = {strokePct !== circ ? color : ""}
       strokeWidth = {strokeWidth}
-      strokeDashArray={circ}
-      strokeDashOffset = {percentage ? strokePct : 0}
+      // length of the dash pattern, can specifiy gaps,
+      // picking circ means the entire length is solid
+      strokeDasharray={circ}
+      // sets the starting point of the dash pattern for the stroke
+      strokeDashoffset = {percentage ? strokePct : 0}
+      // style of stroke line endpoints
       strokeLinecap = "round"
       ></circle>
   )
