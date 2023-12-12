@@ -51,7 +51,7 @@ export default function Player() {
 
       {/* widget holder */}
       <section className="left-player-body">
-        <AudioPlayer currentTrack={currentTrack} isPlaying={true}/>
+        <AudioPlayer currentTrack={currentTrack} currentIndex={currentIndex} setCurrentIndex={setCurrentIndex} totalTracks={tracks} />
       </section>
 
       {/* album info section and queue */}

@@ -10,13 +10,32 @@ import './audioPlayer.css'
 import ProgressCircle from '../ProgressCircle/progressCircle';
 import WaveAnimation from '../WaveAnimation/waveAnimation';
 import Controls from '../Controls/controls';
+import { useState, useRef } from 'react';
 
+/**
+ *
+ * @param {setCurrentIndex} - changes the current song
+ * @returns
+ */
+export default function AudioPlayer({currentTrack, currentIndex, setCurrentIndex, totalTracks}) {
 
-export default function AudioPlayer({currentTrack, isPlaying}) {
   const artists = [];
   currentTrack?.album?.artists.forEach((artist) => {
     artists.push(artist.name);
   })
+
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [trackProgress, setTrackProgress] = useState(0);
+
+  // holds the audio source that is currently being played, the url
+  // Spotify does not give you the whole song just 30 sec preview
+  let audioSrc = totalTracks[currentIndex]?.track.preview_url;
+
+  //used to control the audio
+  //may give error so using totalTracks[0] to check the first song
+  // when the song changes and the index, this will update
+  const audioRef = useRef(new Audio(totalTracks[0]?.track.preview_url))
+
   return (
     <article className="player-body flex">
 
@@ -47,15 +66,15 @@ export default function AudioPlayer({currentTrack, isPlaying}) {
         <section className="player-right-body-bottom flex">
           <section className="song-duration flex" >
             <p className="duration">0:01</p>
-            <WaveAnimation isPlaying={isPlaying}/>
+            <WaveAnimation isPlaying={true}/>
             <p className="duration">0:30</p>
           </section>
           <Controls
-            // isPlaying={isPlaying}
+            // isPlaying={true}
             // setIsPlaying={setIsPlaying}
             // handleNext={handleNext}
             // handlePrev={handlePrev}
-            // total={total}
+            // totalTracks={totalTracks}
           />
         </section>
       </section>
