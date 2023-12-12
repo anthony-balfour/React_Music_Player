@@ -7,6 +7,23 @@ circle {
   transform-origin: 50% 50%;
 }
 
+/* spinning the progress circle  image as the song is playing */
+
+image.active {
+  animation: rotate 30s infinite linear;
+  transform-origin: 50% 50%;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(359deg);
+  }
+}
+
 /* flex styling for progress circle but is off on smaller screens */
 /* .progress-circle > * {
   outline: 10px solid red;

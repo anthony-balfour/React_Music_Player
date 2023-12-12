@@ -15,6 +15,7 @@ export default function AudioPlayer({currentTrack}) {
   return (
     <article className="player-body flex">
 
+      {/* contains the Progress Circle component which tracks the current song */}
       <section className="player-left-body">
         {/**
          * percentage through track
@@ -32,7 +33,9 @@ export default function AudioPlayer({currentTrack}) {
         />
       </section>
 
+        {/* contains track information */}
       <section className="player-right-body">
+        <p className="song-title">{currentTrack?.name}</p>
 
       </section>
     </article>

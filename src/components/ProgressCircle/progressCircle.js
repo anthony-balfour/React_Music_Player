@@ -50,7 +50,7 @@ export default function ProgressCircle({percentage, isPlaying, size, color, imag
         <clipPath id="myCircle">
           <circle cx="50%" cy="50%" r={size/2 - 30} fill="#FFFFFF" />
         </clipPath>
-        <clipPath id="#myInnerCircle">
+        <clipPath id="myInnerCircle">
           <circle cx="50%" cy="50%" r={size / 2 - 100} fill="#FFFFFF" />
         </clipPath>
       </defs>
@@ -63,7 +63,7 @@ export default function ProgressCircle({percentage, isPlaying, size, color, imag
         width={2 * (size / 2 - 30)}
         height={2 * (size / 2 - 30)}
         href= {"https://pngimg.com/uploads/vinyl/vinyl_PNG107.png"}
-        clipPath={"#myCircle"}
+        clipPath={"url(#myCircle)"}
       />
       <image
         className={isPlaying ? "active" : "" }
@@ -72,7 +72,7 @@ export default function ProgressCircle({percentage, isPlaying, size, color, imag
         width={2 * (size / 2 - 100)}
         height={2 * (size / 2 - 100)}
         href= {image}
-        clipPath={"#myinnerCircle"}
+        clipPath={"url(#myInnerCircle)"}
         />
     </svg>
   </section>
