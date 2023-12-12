@@ -8,10 +8,15 @@
 import React from 'react'
 import './audioPlayer.css'
 import ProgressCircle from '../ProgressCircle/progressCircle';
+import WaveAnimation from '../WaveAnimation/waveAnimation';
+import Controls from '../Controls/controls';
 
 
 export default function AudioPlayer({currentTrack}) {
-
+  const artists = [];
+  currentTrack?.album?.artists.forEach((artist) => {
+    artists.push(artist.name);
+  })
   return (
     <article className="player-body flex">
 
@@ -34,10 +39,27 @@ export default function AudioPlayer({currentTrack}) {
       </section>
 
         {/* contains track information */}
-      <section className="player-right-body">
-        <p className="song-title">{currentTrack?.name}</p>
+      <section className="player-right-body flex">
 
+        <p className="song-title">{currentTrack?.name}</p>
+        <p className="song-artist" >{artists.join(' | ' )}</p>
+
+        <section className="player-right-body-bottom flex">
+          <section className="song-duration flex" >
+            <p className="duration">0:01</p>
+            <WaveAnimation />
+            <p className="duration">0:30</p>
+          </section>
+          <Controls
+            // isPlaying={isPlaying}
+            // setIsPlaying={setIsPlaying}
+            // handleNext={handleNext}
+            // handlePrev={handlePrev}
+            // total={total}
+          />
+        </section>
       </section>
+      
     </article>
   )
 }
