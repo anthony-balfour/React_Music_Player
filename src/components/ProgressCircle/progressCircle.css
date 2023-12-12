@@ -1,0 +1,15 @@
+/* Styling for the progress circle, the animation for the prgoress circle takes place over 1s */
+
+circle {
+  transition: all 1s ease-in-out;
+  transform: rotate(93deg);
+  /* transforms about the center */
+  transform-origin: 50% 50%;
+}
+
+/* flex styling for progress circle but is off on smaller screens */
+/* .progress-circle > * {
+  outline: 10px solid red;
+  justify-content: center;
+  align-items: center;
+} */

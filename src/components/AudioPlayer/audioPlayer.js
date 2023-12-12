@@ -25,9 +25,10 @@ export default function AudioPlayer({currentTrack}) {
         <ProgressCircle
           percentage = {75}
           isPlaying={true}
-          image={currentTrack?.album?.images[0]?.url}
           size={300}
           color={"#C96850"}
+          image={currentTrack?.album?.images[0]?.url}
+
         />
       </section>
 
