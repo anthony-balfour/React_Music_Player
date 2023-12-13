@@ -11,13 +11,9 @@
 .controls-wrapper {
   margin: 0;
   width: 100%;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
-  outline: 3px solid green;
-}
-
-div {
-  outline: 1px solid teal;
+  position: relative;
 }
 
 .action-btn:hover {
@@ -34,11 +30,12 @@ div {
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   /* design from Figma */
-  box-shadow: inset -4px -4px
-    10px #55291E, inset 4px 4px
-    10px 1px #FFAE9A
+  box-shadow: inset -4px -4px 10px #55291E, inset 4px 4px 10px 1px #FFAE9A;
 }
 
+.play-pause-btn.active {
+  box-shadow: inset -4px -4px 10px #ff8769, inset 4px 4px 10px 1px #753d30;
+}
 .play-pause-btn:hover {
   transform: scale(1.1);
 }

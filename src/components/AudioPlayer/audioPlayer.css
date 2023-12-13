@@ -16,7 +16,7 @@ in the left body, and the styling of the track info in the right body of the aud
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  outline: 3px solid orange;
+  position: relative;
 }
 
 .song-title {
@@ -60,3 +60,10 @@ in the left body, and the styling of the track info in the right body of the aud
   margin: 0;
   color: #C4D0E3;
 }
+
+.error-wrapper {
+  display:block;
+}
+
+
+

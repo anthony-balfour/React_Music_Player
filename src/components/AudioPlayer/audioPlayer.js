@@ -26,6 +26,7 @@ export default function AudioPlayer({currentTrack, currentIndex, setCurrentIndex
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [trackProgress, setTrackProgress] = useState(0);
+  const [error, setError] = useState(false);
 
   // All song previes from Spotify API are 30 seconds long but in case
   // i get audio from other source this duration will account for it
@@ -37,25 +38,34 @@ export default function AudioPlayer({currentTrack, currentIndex, setCurrentIndex
   // Spotify does not give you the whole song just 30 sec preview
   let audioSrc = totalTracks[currentIndex]?.track.preview_url;
 
+  const audioRef = useRef(null);
+
   // whenever a song is played or paused
   useEffect(() => {
-    let audio = null;
+    let audio = audioRef.current;
 
     const playAudio = async () => {
       try {
-        audio = new Audio(audioSrc);
-        await audio.play;
+        setError(false);
+        if (audio) {
+          audio.currentTime = trackProgress;
+          await audio.play();
+          setIsPlaying(true);
+        }
+
         audio.addEventListener('timeupdate', handleProgressUpdate)
-        audio.addEventListenere('loadedmetadata', handleLoadedMetadata);
+        audio.addEventListener('loadedmetadata', handleLoadedMetadata);
       } catch (error) {
-        console.error('Error occured while playing audio', error);
+        // setError(true);
       }
     }
 
     const pauseAudio = () => {
       if (audio) {
         audio.pause();
-        audio.removeEventListener('timeupdate', handleProgressUpdate)
+        audio.removeEventListener('timeupdate', handleProgressUpdate);
+        audio.addEventListener('loadedmetadata', handleLoadedMetadata);
+        audio = null;
       }
     }
 
@@ -77,7 +87,9 @@ export default function AudioPlayer({currentTrack, currentIndex, setCurrentIndex
     return () => {
       if (audio) {
         audio.pause();
-        audio.removeEventListener('timeupdate', handleProgressUpdate);
+        // audio.removeEventListener('timeupdate', handleProgressUpdate);
+        // audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
+        // audio = null;
       }
     }
 
@@ -91,21 +103,24 @@ export default function AudioPlayer({currentTrack, currentIndex, setCurrentIndex
       try {
         if (audio){
           audio.pause();
+          // audio.removeEventListener('timeupdate', handleProgressUpdate)
+          // audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
+          // audio = null;
         }
+        setError(false);
         audio = new Audio(audioSrc);
         setTrackProgress(audio.currentTime);
         await audio.play();
         setIsPlaying(true);
-        audio.addEventListener('timeupdate', handleProgressUpdate)
-        audio.addEventListenere('loadedmetadata', handleLoadedMetadata);
+        // audio.addEventListener('timeupdate', handleProgressUpdate)
+        // audio.addEventListener('loadedmetadata', handleLoadedMetadata);
       }
       catch (error) {
-        console.error('error occured while playing audio', error)
+        // setError(true);
       }
     }
 
     playAudio();
-
 
     const handleProgressUpdate = () => {
       setTrackProgress(audio.currentTime);
@@ -118,8 +133,9 @@ export default function AudioPlayer({currentTrack, currentIndex, setCurrentIndex
     return () => {
       if (audio) {
         audio.pause();
-        audio.addEventListener('timeupdate', handleProgressUpdate)
-        audio.addEventListenere('loadedmetadata', handleLoadedMetadata);
+        // audio.removeEventListener('timeupdate', handleProgressUpdate)
+        // audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
+        // audio = null;
       }
     };
   }, [currentIndex]);
@@ -240,12 +256,11 @@ export default function AudioPlayer({currentTrack, currentIndex, setCurrentIndex
 
   // adds a zero to the front of a number if the number is less than 10
   const addZero = (n) => {
-      if (n < 10) {
-        n = "0" + n;
-      }
+      return n < 10 ? n = "0" + n : n
     }
 
   return (
+    <>
     <article className="player-body flex">
 
       {/* contains the Progress Circle component which tracks the current song */}
@@ -274,20 +289,23 @@ export default function AudioPlayer({currentTrack, currentIndex, setCurrentIndex
 
         <section className="player-right-body-bottom flex">
           <section className="song-duration flex" >
-            <p className="duration">0: {addZero(Math.round(trackProgress))}</p>
+            <p className="duration">0:{addZero(Math.round(trackProgress))}</p>
             <WaveAnimation isPlaying={true}/>
             <p className="duration">0:30</p>
           </section>
           <Controls
-            isPlaying={true}
+            isPlaying={isPlaying}
             setIsPlaying={setIsPlaying}
             handleNext={handleNext}
             handlePrev={handlePrev}
             totalTracks={totalTracks}
           />
+        <article className="error-wrapper flex">
+          <p className="error-message">{error ? "This song is not avaialable for preview" : ""}</p>
+        </article>
         </section>
       </section>
-
     </article>
+    </>
   )
 }
