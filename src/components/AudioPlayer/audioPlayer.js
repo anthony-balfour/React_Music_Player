@@ -9,7 +9,7 @@ import React from 'react'
 import './audioPlayer.css'
 import ProgressCircle from '../ProgressCircle/progressCircle';
 import WaveAnimation from '../WaveAnimation/waveAnimation';
-import Controls from '../Controls/controls';
+import Controls from '../Controls/controls.js';
 import { useState, useRef, useEffect } from 'react';
 
 /**
@@ -67,13 +67,15 @@ export default function AudioPlayer({currentTrack, currentIndex, setCurrentIndex
         setTrackProgress(audioRef.current.currentTime);
       }
     }, [intervalTiming])
-  }
+  };
+
 
   // checks if song is playing
   // audio source is initially first track in tracks list, this updates it?
   // whenever is playing button is changed
   // run whenever a new song is played?
   useEffect(() => {
+
     if (isPlaying && audioRef.current) {
       audioRef.current = new Audio(audioSrc)
       audioRef.current.play();
@@ -83,9 +85,10 @@ export default function AudioPlayer({currentTrack, currentIndex, setCurrentIndex
       startTimer();
     }
     else {
+      const pauseDelay = 100
       //intervalRef.current refers to ID of the interval
       clearInterval(intervalRef.current)
-      audioRef.current.pause();
+        audioRef.current.pause();
     }
   }, [isPlaying])
 
@@ -94,10 +97,11 @@ export default function AudioPlayer({currentTrack, currentIndex, setCurrentIndex
   // clear previous song and start new one
   // pause prev song and playing it
   useEffect(() => {
-    audioRef.current.pause();
-    audioRef.current = new Audio(audioSrc);
-
-    setTrackProgress(audioRef.current.currentTime);
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current = new Audio(audioSrc);
+      setTrackProgress(audioRef.current.currentTime);
+    }
 
     // checking if song is ready to be played
     if (isReady.current) {
@@ -141,6 +145,13 @@ export default function AudioPlayer({currentTrack, currentIndex, setCurrentIndex
     }
   }
 
+  // adds a zero to the front of a number if the number is less than 10
+  const addZero = (n) => {
+      if (n < 10) {
+        n = "0" + n;
+      }
+    }
+
   return (
     <article className="player-body flex">
 
@@ -170,16 +181,16 @@ export default function AudioPlayer({currentTrack, currentIndex, setCurrentIndex
 
         <section className="player-right-body-bottom flex">
           <section className="song-duration flex" >
-            <p className="duration">0:01</p>
+            <p className="duration">0: {addZero(Math.round(trackProgress))}</p>
             <WaveAnimation isPlaying={true}/>
             <p className="duration">0:30</p>
           </section>
           <Controls
-            // isPlaying={true}
-            // setIsPlaying={setIsPlaying}
-            // handleNext={handleNext}
-            // handlePrev={handlePrev}
-            // totalTracks={totalTracks}
+            isPlaying={true}
+            setIsPlaying={setIsPlaying}
+            handleNext={handleNext}
+            handlePrev={handlePrev}
+            totalTracks={totalTracks}
           />
         </section>
       </section>

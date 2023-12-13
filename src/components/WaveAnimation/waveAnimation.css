@@ -7,7 +7,6 @@
   /* css variable */
   --boxSize: 4px;
   --gutter: 8px;
-  outline: 1px solid blue;
   width: calc((var(--boxSize) + var(--gutter)) * 13);
 }
 

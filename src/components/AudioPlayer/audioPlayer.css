@@ -39,14 +39,12 @@ in the left body, and the styling of the track info in the right body of the aud
   color: #9aa9c2;
   font-size: 14px;
   font-weight: 500;
-  outline: 1px solid red;
 }
 
 .player-right-body-bottom {
   align-items: center;
   width: 100%;
   flex-direction: column;
-  outline: 1px solid blue;
 }
 
 .song-duration {
