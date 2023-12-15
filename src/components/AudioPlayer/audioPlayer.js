@@ -27,6 +27,8 @@ export default function AudioPlayer({currentTrack, currentIndex, setCurrentIndex
   const [isPlaying, setIsPlaying] = useState(false);
   const [trackProgress, setTrackProgress] = useState(0);
   const [error, setError] = useState(false);
+  let audioSrc = totalTracks[currentIndex]?.track.preview_url;
+  const [audio, setAudio] = useState(null);
 
   // All song previes from Spotify API are 30 seconds long but in case
   // i get audio from other source this duration will account for it
@@ -36,26 +38,29 @@ export default function AudioPlayer({currentTrack, currentIndex, setCurrentIndex
 
   // holds the audio source that is currently being played, the url
   // Spotify does not give you the whole song just 30 sec preview
-  let audioSrc = totalTracks[currentIndex]?.track.preview_url;
-
-  const audioRef = useRef(null);
 
   // whenever a song is played or paused
   useEffect(() => {
-    let audio = audioRef.current;
-
+    // let audio = null;
     const playAudio = async () => {
+      console.log("brooooooo")
       try {
         setError(false);
-        if (audio) {
-          audio.currentTime = trackProgress;
+        if (audio !== null) {
           await audio.play();
-          setIsPlaying(true);
+          console.log(audio)
+        } else {
+          let newAudio = new Audio(audioSrc);
+          await setAudio(newAudio);
+          audio.currentTime = trackProgress;
+          audio.play();
+          audio.currentTime = trackProgress;
+          audio.addEventListener('timeupdate', handleProgressUpdate)
+          audio.addEventListener('loadedmetadata', handleLoadedMetadata);
         }
-
-        audio.addEventListener('timeupdate', handleProgressUpdate)
-        audio.addEventListener('loadedmetadata', handleLoadedMetadata);
-      } catch (error) {
+      }
+      catch (error) {
+        console.error("huh", error);
         // setError(true);
       }
     }
@@ -65,7 +70,7 @@ export default function AudioPlayer({currentTrack, currentIndex, setCurrentIndex
         audio.pause();
         audio.removeEventListener('timeupdate', handleProgressUpdate);
         audio.addEventListener('loadedmetadata', handleLoadedMetadata);
-        audio = null;
+        // audio = null;
       }
     }
 
@@ -78,6 +83,7 @@ export default function AudioPlayer({currentTrack, currentIndex, setCurrentIndex
     }
 
     if (isPlaying) {
+
       playAudio();
     } else {
       pauseAudio();
@@ -87,8 +93,8 @@ export default function AudioPlayer({currentTrack, currentIndex, setCurrentIndex
     return () => {
       if (audio) {
         audio.pause();
-        // audio.removeEventListener('timeupdate', handleProgressUpdate);
-        // audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
+        audio.removeEventListener('timeupdate', handleProgressUpdate);
+        audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
         // audio = null;
       }
     }
@@ -96,49 +102,59 @@ export default function AudioPlayer({currentTrack, currentIndex, setCurrentIndex
   }, [isPlaying]);
 
   // whenever the track changes
-  useEffect(() => {
-    let audio = null;
+  // useEffect(() => {
+  //   // let audio = null;
 
-    const playAudio = async () => {
-      try {
-        if (audio){
-          audio.pause();
-          // audio.removeEventListener('timeupdate', handleProgressUpdate)
-          // audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
-          // audio = null;
-        }
-        setError(false);
-        audio = new Audio(audioSrc);
-        setTrackProgress(audio.currentTime);
-        await audio.play();
-        setIsPlaying(true);
-        // audio.addEventListener('timeupdate', handleProgressUpdate)
-        // audio.addEventListener('loadedmetadata', handleLoadedMetadata);
-      }
-      catch (error) {
-        // setError(true);
-      }
-    }
+  //   setIsPlaying(false);
+  //   setTrackProgress(0);
 
-    playAudio();
+  //   const playAudio = async () => {
+  //     try {
+  //       // if (audio){
+  //       //   audio.pause();
+  //       //   audio.currentTime = 0;
+  //       //   audio.removeEventListener('timeupdate', handleProgressUpdate)
+  //       //   audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
+  //       //   audio = null;
+  //       //   setIsPlaying(false);
+  //       // }
+  //       //   setError(false);
 
-    const handleProgressUpdate = () => {
-      setTrackProgress(audio.currentTime);
-    }
+  //         audio = new Audio(audioSrc);
+  //         audio.currentTime = 0;
+  //         setTrackProgress(audio.currentTime);
+  //         await audio.play();
+  //         setIsPlaying(true);
+  //         audio.addEventListener('timeupdate', handleProgressUpdate)
+  //         audio.addEventListener('loadedmetadata', handleLoadedMetadata);
+  //     }
 
-    const handleLoadedMetadata = () => {
-      setDuration(audio.duration);
-    }
+  //     catch (error) {
+  //       // setError(true);
+  //     }
+  //   }
 
-    return () => {
-      if (audio) {
-        audio.pause();
-        // audio.removeEventListener('timeupdate', handleProgressUpdate)
-        // audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
-        // audio = null;
-      }
-    };
-  }, [currentIndex]);
+  //     playAudio();
+
+
+
+  //   const handleProgressUpdate = () => {
+  //     setTrackProgress(audio.currentTime);
+  //   }
+
+  //   const handleLoadedMetadata = () => {
+  //     setDuration(audio.duration);
+  //   }
+
+  //   return () => {
+  //     if (audio) {
+  //       audio.pause();
+  //       audio.removeEventListener('timeupdate', handleProgressUpdate)
+  //       audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
+  //       audio = null;
+  //     }
+  //   };
+  // }, [currentIndex]);
 
   //used to control the audio
   //may give error so using totalTracks[0] to check the first song
