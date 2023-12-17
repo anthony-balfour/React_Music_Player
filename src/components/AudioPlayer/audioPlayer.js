@@ -29,66 +29,8 @@ export default function AudioPlayer({currentTrack, currentIndex, setCurrentIndex
   // const [error, setError] = useState(false);
   let audioSrc = totalTracks[currentIndex]?.track.preview_url;
 
-
-  // All song previes from Spotify API are 30 seconds long but in case
-  // i get audio from other source this duration will account for it
-
-
-  // whenever the track changes
-  useEffect(() => {
-    // let audio = null;
-
-    setIsPlaying(false);
-    setTrackProgress(0);
-
-    const playAudio = async () => {
-      try {
-        // if (audio){
-        //   audio.pause();
-        //   audio.currentTime = 0;
-        //   audio.removeEventListener('timeupdate', handleProgressUpdate)
-        //   audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
-        //   audio = null;
-        //   setIsPlaying(false);
-        // }
-        //   setError(false);
-
-          audio = new Audio(audioSrc);
-          audio.currentTime = 0;
-          setTrackProgress(audio.currentTime);
-          await audio.play();
-          setIsPlaying(true);
-          audio.addEventListener('timeupdate', handleProgressUpdate)
-          audio.addEventListener('loadedmetadata', handleLoadedMetadata);
-      }
-
-      catch (error) {
-        // setError(true);
-      }
-    }
-
-      playAudio();
-
-
-
-    const handleProgressUpdate = () => {
-      setTrackProgress(audio.currentTime);
-    }
-
-    const handleLoadedMetadata = () => {
-      setDuration(audio.duration);
-    }
-
-    return () => {
-      if (audio) {
-        audio.pause();
-        audio.removeEventListener('timeupdate', handleProgressUpdate)
-        audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
-        audio = null;
-      }
-    };
-  }, [currentIndex]);
-
+  // used to play the audio and stop it
+  // initial value will be the first song
   // used to control the audio
   // may give error so using totalTracks[0] to check the first song
   // when the song changes and the index, this will update
@@ -97,24 +39,39 @@ export default function AudioPlayer({currentTrack, currentIndex, setCurrentIndex
   //used for changing the interval, an action that performs actions at regular intervals
   // such as updating a song
   // initalizes as undefined object until using setInterval
+  // useRef stores a mutable reference that persists across re-renders of a funcitonal component
   const intervalRef = useRef();
 
   // if song is ready to be played, if song is in place to be played
-
+  // checks if song is in place and ready to be played
   const isReady = useRef(false);
 
+
+  // All song previes from Spotify API are 30 seconds long but in case
+  // i get audio from other source this duration will account for it
+
   // current length of song
+  // current refers to the current value of the reference
   const { duration } = audioRef.current;
 
   // tracking current percentage of song
-  const currentPercentage = duration ? (trackProgress / duration) + 100 : 0;
+  const currentPercentage = duration ? (trackProgress / duration) * 100 : 0;
 
   // start a timer whenever a song starts playing
+  // if the audio ref has ended, meaning the current song is over, goes to the next song
+  // if it's not ended it will track the progress
+  // primary purpose is to go to the next song if the current audio ref has ended
+  // or to track song progress every second
+  const startSongTracker = () => {
 
-  const intervalTiming = 1000;
-  const startTimer = () => {
+    // if there's an interval in the ref it's cleared
     clearInterval(intervalRef.current);
 
+    const intervalTiming = 1000;
+
+    //setInterval returns a in integer which is an ID for the interval,
+    // so the interval can be cleared or canceled later
+    // set interval calls a function at set intervals
     //audioRef.current is the duration of the song
     intervalRef.current = setInterval(() => {
       if (audioRef.current.ended) {
@@ -127,6 +84,15 @@ export default function AudioPlayer({currentTrack, currentIndex, setCurrentIndex
     }, [intervalTiming])
   };
 
+  const playSong = async () => {
+    try {
+      await audioRef.current.play();
+    }
+    catch (error) {
+      console.log(error);
+    }
+  }
+
 
   // checks if song is playing
   // audio source is initially first track in tracks list, this updates it?
@@ -134,16 +100,20 @@ export default function AudioPlayer({currentTrack, currentIndex, setCurrentIndex
   // run whenever a new song is played?
   useEffect(() => {
 
+    // if the play button is hit and there is a song being used as ref to play
     if (isPlaying && audioRef.current) {
+      // will update audio source if the current index changes
+
       audioRef.current = new Audio(audioSrc)
-      audioRef.current.play();
+      playSong();
+
       // will check every second if the song is finsihed,
       // if it is ends the song and goes to the next
       // if not, sets current progress
-      startTimer();
+      startSongTracker();
     }
     else {
-      const pauseDelay = 100
+      
       //intervalRef.current refers to ID of the interval
       clearInterval(intervalRef.current)
         audioRef.current.pause();
@@ -165,7 +135,7 @@ export default function AudioPlayer({currentTrack, currentIndex, setCurrentIndex
     if (isReady.current) {
       audioRef.current.play();
       setIsPlaying(true);
-      startTimer();
+      startSongTracker();
     }
     else {
       isReady.current = true;
