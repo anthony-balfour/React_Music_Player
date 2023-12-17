@@ -26,53 +26,50 @@ export default function AudioPlayer({currentTrack, currentIndex, setCurrentIndex
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [trackProgress, setTrackProgress] = useState(0);
-  const [error, setError] = useState(false);
+  // const [error, setError] = useState(false);
   let audioSrc = totalTracks[currentIndex]?.track.preview_url;
-  const [audio, setAudio] = useState(null);
+
 
   // All song previes from Spotify API are 30 seconds long but in case
   // i get audio from other source this duration will account for it
-  const [duration, setDuration] = useState(0);
 
-  const currentPercentage = duration ? (trackProgress / duration) * 100 : 0;
 
-  // holds the audio source that is currently being played, the url
-  // Spotify does not give you the whole song just 30 sec preview
-
-  // whenever a song is played or paused
+  // whenever the track changes
   useEffect(() => {
     // let audio = null;
+
+    setIsPlaying(false);
+    setTrackProgress(0);
+
     const playAudio = async () => {
-      console.log("brooooooo")
       try {
-        setError(false);
-        if (audio !== null) {
+        // if (audio){
+        //   audio.pause();
+        //   audio.currentTime = 0;
+        //   audio.removeEventListener('timeupdate', handleProgressUpdate)
+        //   audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
+        //   audio = null;
+        //   setIsPlaying(false);
+        // }
+        //   setError(false);
+
+          audio = new Audio(audioSrc);
+          audio.currentTime = 0;
+          setTrackProgress(audio.currentTime);
           await audio.play();
-          console.log(audio)
-        } else {
-          let newAudio = new Audio(audioSrc);
-          await setAudio(newAudio);
-          audio.currentTime = trackProgress;
-          audio.play();
-          audio.currentTime = trackProgress;
+          setIsPlaying(true);
           audio.addEventListener('timeupdate', handleProgressUpdate)
           audio.addEventListener('loadedmetadata', handleLoadedMetadata);
-        }
       }
+
       catch (error) {
-        console.error("huh", error);
         // setError(true);
       }
     }
 
-    const pauseAudio = () => {
-      if (audio) {
-        audio.pause();
-        audio.removeEventListener('timeupdate', handleProgressUpdate);
-        audio.addEventListener('loadedmetadata', handleLoadedMetadata);
-        // audio = null;
-      }
-    }
+      playAudio();
+
+
 
     const handleProgressUpdate = () => {
       setTrackProgress(audio.currentTime);
@@ -82,172 +79,108 @@ export default function AudioPlayer({currentTrack, currentIndex, setCurrentIndex
       setDuration(audio.duration);
     }
 
-    if (isPlaying) {
-
-      playAudio();
-    } else {
-      pauseAudio();
-    }
-    // clean up, runs on unmount or rerenders after useEffect has begun running,
-    // cleans up previous effects
     return () => {
       if (audio) {
         audio.pause();
-        audio.removeEventListener('timeupdate', handleProgressUpdate);
+        audio.removeEventListener('timeupdate', handleProgressUpdate)
         audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
-        // audio = null;
+        audio = null;
       }
+    };
+  }, [currentIndex]);
+
+  // used to control the audio
+  // may give error so using totalTracks[0] to check the first song
+  // when the song changes and the index, this will update
+  const audioRef = useRef(new Audio(totalTracks[0]?.track.preview_url));
+
+  //used for changing the interval, an action that performs actions at regular intervals
+  // such as updating a song
+  // initalizes as undefined object until using setInterval
+  const intervalRef = useRef();
+
+  // if song is ready to be played, if song is in place to be played
+
+  const isReady = useRef(false);
+
+  // current length of song
+  const { duration } = audioRef.current;
+
+  // tracking current percentage of song
+  const currentPercentage = duration ? (trackProgress / duration) + 100 : 0;
+
+  // start a timer whenever a song starts playing
+
+  const intervalTiming = 1000;
+  const startTimer = () => {
+    clearInterval(intervalRef.current);
+
+    //audioRef.current is the duration of the song
+    intervalRef.current = setInterval(() => {
+      if (audioRef.current.ended) {
+        //goes to the next song
+        handleNext();
+      }
+      else {
+        setTrackProgress(audioRef.current.currentTime);
+      }
+    }, [intervalTiming])
+  };
+
+
+  // checks if song is playing
+  // audio source is initially first track in tracks list, this updates it?
+  // whenever is playing button is changed
+  // run whenever a new song is played?
+  useEffect(() => {
+
+    if (isPlaying && audioRef.current) {
+      audioRef.current = new Audio(audioSrc)
+      audioRef.current.play();
+      // will check every second if the song is finsihed,
+      // if it is ends the song and goes to the next
+      // if not, sets current progress
+      startTimer();
+    }
+    else {
+      const pauseDelay = 100
+      //intervalRef.current refers to ID of the interval
+      clearInterval(intervalRef.current)
+        audioRef.current.pause();
+    }
+  }, [isPlaying])
+
+  //setting the current track progress of the song
+  // whenever the currentIndex is changed
+  // clear previous song and start new one
+  // pause prev song and playing it
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current = new Audio(audioSrc);
+      setTrackProgress(audioRef.current.currentTime);
     }
 
-  }, [isPlaying]);
+    // checking if song is ready to be played
+    if (isReady.current) {
+      audioRef.current.play();
+      setIsPlaying(true);
+      startTimer();
+    }
+    else {
+      isReady.current = true;
+    }
 
-  // whenever the track changes
-  // useEffect(() => {
-  //   // let audio = null;
+  }, [currentIndex]);
 
-  //   setIsPlaying(false);
-  //   setTrackProgress(0);
+  //cleanup useEffect, leaving the screen/ clearing the intervals and track so no extra space
 
-  //   const playAudio = async () => {
-  //     try {
-  //       // if (audio){
-  //       //   audio.pause();
-  //       //   audio.currentTime = 0;
-  //       //   audio.removeEventListener('timeupdate', handleProgressUpdate)
-  //       //   audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
-  //       //   audio = null;
-  //       //   setIsPlaying(false);
-  //       // }
-  //       //   setError(false);
-
-  //         audio = new Audio(audioSrc);
-  //         audio.currentTime = 0;
-  //         setTrackProgress(audio.currentTime);
-  //         await audio.play();
-  //         setIsPlaying(true);
-  //         audio.addEventListener('timeupdate', handleProgressUpdate)
-  //         audio.addEventListener('loadedmetadata', handleLoadedMetadata);
-  //     }
-
-  //     catch (error) {
-  //       // setError(true);
-  //     }
-  //   }
-
-  //     playAudio();
-
-
-
-  //   const handleProgressUpdate = () => {
-  //     setTrackProgress(audio.currentTime);
-  //   }
-
-  //   const handleLoadedMetadata = () => {
-  //     setDuration(audio.duration);
-  //   }
-
-  //   return () => {
-  //     if (audio) {
-  //       audio.pause();
-  //       audio.removeEventListener('timeupdate', handleProgressUpdate)
-  //       audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
-  //       audio = null;
-  //     }
-  //   };
-  // }, [currentIndex]);
-
-  //used to control the audio
-  //may give error so using totalTracks[0] to check the first song
-  // when the song changes and the index, this will update
-  // const audioRef = useRef(new Audio(totalTracks[0]?.track.preview_url));
-
-  // //used for changing the interval, an action that performs actions at regular intervals
-  // // such as updating a song
-  // // initalizes as undefined object until using setInterval
-  // const intervalRef = useRef();
-
-  // // if song is ready to be played, if song is in place to be played
-
-  // const isReady = useRef(false);
-
-  // // current length of song
-  // const { duration } = audioRef.current;
-
-  // // tracking current percentage of song
-  // const currentPercentage = duration ? (trackProgress / duration) + 100 : 0;
-
-  // // start a timer whenever a song starts playing
-
-  // const intervalTiming = 1000;
-  // const startTimer = () => {
-  //   clearInterval(intervalRef.current);
-
-  //   //audioRef.current is the duration of the song
-  //   intervalRef.current = setInterval(() => {
-  //     if (audioRef.current.ended) {
-  //       //goes to the next song
-  //       handleNext();
-  //     }
-  //     else {
-  //       setTrackProgress(audioRef.current.currentTime);
-  //     }
-  //   }, [intervalTiming])
-  // };
-
-
-  // // checks if song is playing
-  // // audio source is initially first track in tracks list, this updates it?
-  // // whenever is playing button is changed
-  // // run whenever a new song is played?
-  // useEffect(() => {
-
-  //   if (isPlaying && audioRef.current) {
-  //     audioRef.current = new Audio(audioSrc)
-  //     audioRef.current.play();
-  //     // will check every second if the song is finsihed,
-  //     // if it is ends the song and goes to the next
-  //     // if not, sets current progress
-  //     startTimer();
-  //   }
-  //   else {
-  //     const pauseDelay = 100
-  //     //intervalRef.current refers to ID of the interval
-  //     clearInterval(intervalRef.current)
-  //       audioRef.current.pause();
-  //   }
-  // }, [isPlaying])
-
-  // //setting the current track progress of the song
-  // // whenever the currentIndex is changed
-  // // clear previous song and start new one
-  // // pause prev song and playing it
-  // useEffect(() => {
-  //   if (audioRef.current) {
-  //     audioRef.current.pause();
-  //     audioRef.current = new Audio(audioSrc);
-  //     setTrackProgress(audioRef.current.currentTime);
-  //   }
-
-  //   // checking if song is ready to be played
-  //   if (isReady.current) {
-  //     audioRef.current.play();
-  //     setIsPlaying(true);
-  //     startTimer();
-  //   }
-  //   else {
-  //     isReady.current = true;
-  //   }
-
-  // }, [currentIndex]);
-
-  // //cleanup useEffect, leaving the screen/ clearing the intervals and track so no extra space
-
-  // useEffect(() => {
-  //   return () => {
-  //     audioRef.current.pause();
-  //     clearInterval(intervalRef.current);
-  //   }
-  // },[])
+  useEffect(() => {
+    return () => {
+      audioRef.current.pause();
+      clearInterval(intervalRef.current);
+    }
+  },[])
 
   //  switches to the next song
   const handleNext = () => {
