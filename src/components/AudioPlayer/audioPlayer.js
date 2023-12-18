@@ -26,6 +26,7 @@ export default function AudioPlayer({currentTrack, currentIndex, setCurrentIndex
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [trackProgress, setTrackProgress] = useState(0);
+
   // const [error, setError] = useState(false);
   let audioSrc = totalTracks[currentIndex]?.track.preview_url;
 
@@ -126,6 +127,8 @@ export default function AudioPlayer({currentTrack, currentIndex, setCurrentIndex
    * pause prev song and playing it
    */
   useEffect(() => {
+    console.log("currentIndexuseeffect running");
+    console.log("isreadycurrent: " + isReady.current);
     if (audioRef.current) {
       audioRef.current.pause();
       audioRef.current = new Audio(audioSrc);
