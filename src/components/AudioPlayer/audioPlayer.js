@@ -113,17 +113,18 @@ export default function AudioPlayer({currentTrack, currentIndex, setCurrentIndex
       startSongTracker();
     }
     else {
-      
       //intervalRef.current refers to ID of the interval
       clearInterval(intervalRef.current)
         audioRef.current.pause();
     }
   }, [isPlaying])
 
-  //setting the current track progress of the song
-  // whenever the currentIndex is changed
-  // clear previous song and start new one
-  // pause prev song and playing it
+
+  /**
+   * Setting the current track progress of the song whenever the currentIndex is changed
+   * clear previous song and start new one
+   * pause prev song and playing it
+   */
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.pause();
@@ -133,18 +134,18 @@ export default function AudioPlayer({currentTrack, currentIndex, setCurrentIndex
 
     // checking if song is ready to be played
     if (isReady.current) {
-      audioRef.current.play();
+      playSong();
       setIsPlaying(true);
       startSongTracker();
     }
     else {
+      // this value is initialized as false
       isReady.current = true;
     }
 
   }, [currentIndex]);
 
-  //cleanup useEffect, leaving the screen/ clearing the intervals and track so no extra space
-
+  //cleanup useEffect, leaving the screen/clearing the intervals and track so no extra space is used
   useEffect(() => {
     return () => {
       audioRef.current.pause();
@@ -220,7 +221,7 @@ export default function AudioPlayer({currentTrack, currentIndex, setCurrentIndex
             totalTracks={totalTracks}
           />
         <article className="error-wrapper flex">
-          <p className="error-message">{error ? "This song is not avaialable for preview" : ""}</p>
+          <p className="error-message"></p>
         </article>
         </section>
       </section>
