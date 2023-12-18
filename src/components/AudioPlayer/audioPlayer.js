@@ -127,8 +127,6 @@ export default function AudioPlayer({currentTrack, currentIndex, setCurrentIndex
    * pause prev song and playing it
    */
   useEffect(() => {
-    console.log("currentIndexuseeffect running");
-    console.log("isreadycurrent: " + isReady.current);
     if (audioRef.current) {
       audioRef.current.pause();
       audioRef.current = new Audio(audioSrc);
@@ -138,7 +136,8 @@ export default function AudioPlayer({currentTrack, currentIndex, setCurrentIndex
     // checking if song is ready to be played
     if (isReady.current) {
       playSong();
-      setIsPlaying(true);
+
+        setIsPlaying(true);
       startSongTracker();
     }
     else {
@@ -213,7 +212,7 @@ export default function AudioPlayer({currentTrack, currentIndex, setCurrentIndex
         <section className="player-right-body-bottom flex">
           <section className="song-duration flex" >
             <p className="duration">0:{addZero(Math.round(trackProgress))}</p>
-            <WaveAnimation isPlaying={true}/>
+            <WaveAnimation isPlaying={isPlaying}/>
             <p className="duration">0:30</p>
           </section>
           <Controls
