@@ -101,22 +101,36 @@ export default function AudioPlayer({currentTrack, currentIndex, setCurrentIndex
   // run whenever a new song is played?
   useEffect(() => {
 
-    // if the play button is hit and there is a song being used as ref to play
-    if (isPlaying && audioRef.current) {
-      // will update audio source if the current index changes
+    if (audioRef.current.src) {
+      isReady.current = true;
+      if (isPlaying && audioRef.current) {
+        // will update audio source if the current index changes
+        playSong();
 
-      audioRef.current = new Audio(audioSrc)
-      playSong();
-
-      // will check every second if the song is finsihed,
-      // if it is ends the song and goes to the next
-      // if not, sets current progress
-      startSongTracker();
+        // will check every second if the song is finsihed,
+        // if it is ends the song and goes to the next
+        // if not, sets current progress
+        startSongTracker();
+      }
+      else {
+        //intervalRef.current refers to ID of the interval
+        clearInterval(intervalRef.current)
+          audioRef.current.pause();
+      }
     }
+    // if the play button is hit and there is a song being used as ref to play
     else {
-      //intervalRef.current refers to ID of the interval
-      clearInterval(intervalRef.current)
-        audioRef.current.pause();
+      if (isPlaying) {
+        isReady.current = true;
+        audioRef.current = new Audio(audioSrc);
+        playSong();
+        startSongTracker();
+      }
+      else {
+        //intervalRef.current refers to ID of the interval
+        clearInterval(intervalRef.current)
+          audioRef.current.pause();
+      }
     }
   }, [isPlaying])
 
@@ -133,17 +147,23 @@ export default function AudioPlayer({currentTrack, currentIndex, setCurrentIndex
       setTrackProgress(audioRef.current.currentTime);
     }
 
+    // starts playing a song if the first song is not played initially
+    if (currentIndex > 0) {
+      isReady.current = true;
+    }
+
     // checking if song is ready to be played
     if (isReady.current) {
       playSong();
 
-        setIsPlaying(true);
+      setIsPlaying(true);
       startSongTracker();
     }
-    else {
-      // this value is initialized as false
-      isReady.current = true;
-    }
+
+    // else {
+    //   // this value is initialized as false
+    //   isReady.current = true;
+    // }
 
   }, [currentIndex]);
 

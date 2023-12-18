@@ -3,7 +3,7 @@ in the left body, and the styling of the track info in the right body of the aud
 
 .player-body {
   width: 100%;
-  height: 44%;
+  height: 40%;
   margin: 3% 0%;
 }
 
@@ -14,7 +14,7 @@ in the left body, and the styling of the track info in the right body of the aud
 .player-right-body {
   width: 63%;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   position: relative;
 }
