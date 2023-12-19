@@ -3,7 +3,7 @@
  */
 
 import React, { useEffect, useState } from 'react'
-import WidgetCard from './WidgetCard/widgetCard';
+import WidgetCard from './Card/widgetCard';
 import apiClient from '../../spotify';
 import './widgets.css';
 
@@ -12,18 +12,16 @@ export default function Widgets({ artistID }) {
   const [similarArtists, setSimilarArtists] = useState([]);
   const [featured, setFeatured] = useState([]);
   const [newRelease, setNewRelease] = useState([]);
-  const id = artistID?.artists[0]?.id;
 
   /**
    * Runs whenever id changes, which is the first artist in the artistId passed in
    */
   useEffect(() => {
 
-    //grabs related artists from Spotify API
-    // grabs top 3 artists
-    apiClient.get(`/artists/${id}/related-artists`)
+    if (artistID) {
+      apiClient.get(`/artists/${artistID}/related-artists`)
       .then(res => {
-        const artists = res.data?.artists.slice(0, 3);
+        const artists = res.data?.artists?.slice(0, 3);
         setSimilarArtists(artists);
       })
       .catch(error => console.error(error));
@@ -36,19 +34,22 @@ export default function Widgets({ artistID }) {
       })
       .catch(error => console.error(error));
 
-      apiClient.get(`browse/new-release`)
+      apiClient.get(`browse/new-releases`)
       .then(res => {
         const release = res.data?.albums.items.slice(0, 3);
         setNewRelease(release);
       })
       .catch(error => console.error(error));
-  }, [id])
+    }
+    //grabs related artists from Spotify API
+    // grabs top 3 artists
+  }, [artistID])
 
   return (
     <section className="widgets-body flex">
-      <WidgetCard title="Similar Artists" similar={similarArtists} />
-      <WidgetCard title="Made For You" similar={featured} />
-      <WidgetCard title="New Releases" similar={newRelease} />
+      <WidgetCard title="Similar Artists" similarArtists={similarArtists} />
+      <WidgetCard title="Made For You" featured={featured} />
+      <WidgetCard title="New Releases" newRelease={newRelease} />
     </section>
   )
 }

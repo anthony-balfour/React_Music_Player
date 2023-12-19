@@ -33,12 +33,17 @@ export default function Player() {
       // and will not crash the app
       apiClient.get("playlists/" + location.state?.id + "/tracks")
         .then(response => {
+          // console.log(response.data.items[0].track);
           setTracks(response.data.items);
+
           // using response from Spotify API to play current track
           setCurrentTrack(response.data.items[0] ? response.data.items[0].track : []);
+
         })
     }
   }, [location.state]);
+
+
 
   // to change the current track in the Player
   // anytime currentIndex changes, automatically change current track
@@ -58,7 +63,7 @@ export default function Player() {
           setCurrentIndex={setCurrentIndex}
           totalTracks={tracks} />
 
-        <Widgets artistID={currentTrack?.album} />
+        <Widgets artistID={currentTrack?.album?.artists[0]?.id} />
       </section>
 
       {/* album info section and queue */}
