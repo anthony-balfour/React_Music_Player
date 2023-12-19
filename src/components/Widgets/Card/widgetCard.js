@@ -2,10 +2,11 @@
  * Widget card in the Widget component located on the Player page, under the audioPlayer componenet
  */
 
-import React from 'react'
+import React from 'react';
 import './widgetCard.css';
 import WidgetEntry from '../Entry/widgetEntry';
-
+import { IconContext } from 'react-icons';
+import {FiChevronRight} from 'react-icons/fi';
 /**
  *
  * @param {String} title - Title of the widget card, either Featured artists,
@@ -34,7 +35,7 @@ export default function WidgetCard({title, similarArtists, featured, newRelease}
               title={playlist?.name}
               subtitle={playlist?.tracks?.total + " Songs"}
               // third image is the smallest image of the 3 given
-              image={playlist?.images[2]?.url}
+              image={playlist?.images[0]?.url}
             />
           )
         }) : newRelease ? newRelease.map(album => {
@@ -49,8 +50,16 @@ export default function WidgetCard({title, similarArtists, featured, newRelease}
         })
 
         : null
-
     }
+
+    {/* Fade property on widget cards */}
+     <div className="widget-fade">
+      <div className="fade-button">
+        <IconContext.Provider value={{size: "24px", color: "#c4d0e3"}}>
+          <FiChevronRight />
+        </IconContext.Provider>
+      </div>
+    </div>
     </section>
   )
 }
