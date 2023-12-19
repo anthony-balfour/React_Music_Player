@@ -10,6 +10,7 @@ import apiClient from '../../spotify';
 import { AlbumCard } from '../../components/AlbumCard/albumCard';
 import { Queue } from '../../components/Queue/queue';
 import AudioPlayer from '../../components/AudioPlayer/audioPlayer';
+import Widgets from '../../components/Widgets/widgets';
 
 export default function Player() {
 
@@ -49,13 +50,15 @@ export default function Player() {
   return (
     <div className='page-container flex' >
 
-      {/* widget holder */}
+      {/* widget and audio player holder */}
       <section className="left-player-body">
         <AudioPlayer
           currentTrack={currentTrack}
           currentIndex={currentIndex}
           setCurrentIndex={setCurrentIndex}
           totalTracks={tracks} />
+
+        <Widgets artistID={currentTrack?.album} />
       </section>
 
       {/* album info section and queue */}

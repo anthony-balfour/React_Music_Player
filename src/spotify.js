@@ -10,6 +10,8 @@ const clientID = '57de4d20e70c4d98be37d1a540cfbdcd';
 // where the user will be redirected after logging into the spotify api
 const redirectUri = "http://localhost:3000";
 
+// const redirectUri = "http://spotifyapi.music.player.react.s3-website.us-east-2.amazonaws.com/";
+
 // scopes - only what is being used will be shared?
 
 const scopes = ["user-library-read", "playlist-read-private"];
