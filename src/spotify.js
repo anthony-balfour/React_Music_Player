@@ -1,6 +1,6 @@
 // Handles communication with the Spotify API
 // Uses scopes to determine what is available to the client accessing the API
-// Requires
+// exports the login endpoint to the login page,
 
 import axios from "axios";
 
@@ -12,7 +12,7 @@ const redirectUri = "http://localhost:3000";
 
 // const redirectUri = "http://spotifyapi.music.player.react.s3-website.us-east-2.amazonaws.com/";
 
-// scopes - only what is being used will be shared?
+// scopes - only what is being used will be shared
 
 const scopes = ["user-library-read", "playlist-read-private"];
 

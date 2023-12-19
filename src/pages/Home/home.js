@@ -1,3 +1,9 @@
+/**
+ * Displays the home page of the app. If the access token is not in state, if it's
+ * the users first itme logging in, or the access token has expired after 30 minutes, then the login
+ * page is displayed. Otherwise the app is displayed
+ */
+
 import React, { useEffect, useState } from 'react'
 import Library from '../Library/library'
 import Feed from '../Feed/feed'

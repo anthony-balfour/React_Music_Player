@@ -1,3 +1,8 @@
+/**
+ * Logs in to the Spotify account used for populating the library page
+ * The login endpoint is imported from the spotify.js file
+ */
+
 import React from 'react';
 import './login.css';
 import { loginEndpoint } from '../../spotify';
