@@ -42,6 +42,7 @@ in the left body, and the styling of the track info in the right body of the aud
 }
 
 .player-right-body-bottom {
+  position: relative;
   align-items: center;
   width: 100%;
   flex-direction: column;
@@ -62,7 +63,14 @@ in the left body, and the styling of the track info in the right body of the aud
 }
 
 .error-wrapper {
-  display:block;
+  display: absolute;
+  transform: translateY(10px);
+}
+
+.error-message {
+  margin: 0;
+  padding: 0;
+  color: #C4D0E3;
 }
 
 

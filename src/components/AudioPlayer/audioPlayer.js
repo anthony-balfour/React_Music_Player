@@ -24,6 +24,8 @@ export default function AudioPlayer({currentTrack, currentIndex, setCurrentIndex
     artists.push(artist.name);
   })
 
+  const errorMessage = "Sorry, that track is not available for preview"
+
   const [isPlaying, setIsPlaying] = useState(false);
   const [trackProgress, setTrackProgress] = useState(0);
 
@@ -100,7 +102,6 @@ export default function AudioPlayer({currentTrack, currentIndex, setCurrentIndex
   // whenever is playing button is changed
   // run whenever a new song is played?
   useEffect(() => {
-
     if (audioRef.current.src) {
       isReady.current = true;
       if (isPlaying && audioRef.current) {
@@ -134,7 +135,6 @@ export default function AudioPlayer({currentTrack, currentIndex, setCurrentIndex
     }
   }, [isPlaying])
 
-
   /**
    * Setting the current track progress of the song whenever the currentIndex is changed
    * clear previous song and start new one
@@ -147,7 +147,7 @@ export default function AudioPlayer({currentTrack, currentIndex, setCurrentIndex
       setTrackProgress(audioRef.current.currentTime);
     }
 
-    // starts playing a song if the first song is not played initially
+    // starts playing a song  by hitting the next button  if the first song is not played initially
     if (currentIndex > 0) {
       isReady.current = true;
     }
@@ -242,9 +242,9 @@ export default function AudioPlayer({currentTrack, currentIndex, setCurrentIndex
             handlePrev={handlePrev}
             totalTracks={totalTracks}
           />
-        <article className="error-wrapper flex">
-          <p className="error-message"></p>
-        </article>
+          <article className="error-wrapper flex">
+            <p className="error-message">{audioSrc ? "" : errorMessage}</p>
+          </article>
         </section>
       </section>
     </article>
