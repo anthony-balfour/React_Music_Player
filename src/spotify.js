@@ -8,7 +8,10 @@ const authEndpoint = "https://accounts.spotify.com/authorize?";
 const clientID = '57de4d20e70c4d98be37d1a540cfbdcd';
 
 // where the user will be redirected after logging into the spotify api
-const redirectUri = "http://localhost:3000";
+// const redirectUri = "http://localhost:3000";
+
+// URI of EC2 Instance
+const redirectUri = "http://3.14.251.109:8004";
 
 // const redirectUri = "http://spotifyapi.music.player.react.s3-website.us-east-2.amazonaws.com/";
 
