@@ -1,3 +1,6 @@
+/* Styling for the library page. The main page is populated by flexed playlist cards and
+a background with a bluish linear gradient */
+
 .library-body {
   width: 94%;
   height: 88%;
@@ -7,7 +10,6 @@
   /* whenever there are too many playlsits it will add scroll feature */
   overflow-y: auto;
   gap: 25px;
-
 }
 
 .playlist-card {

@@ -15,8 +15,18 @@
   margin-top: 20px;
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 415px) {
   .sidebar-container {
-    width: 85px;
+    position: fixed;
+    z-index: 10;
+    bottom: 0;
+    width: 100%;
+    outline: 2px solid teal;
+    height: 100px;
+    flex-direction: row;
+  }
+
+  .profile-img {
+    width: 50px;
   }
 }

@@ -50,7 +50,7 @@ function Home() {
     !token ? <Login /> : (
     <Router>
       <main className="main">
-        <Sidebar />
+      <Sidebar />
         <Routes>
           <Route path="/" element={<Library />} />
 
@@ -60,6 +60,7 @@ function Home() {
           <Route path="/player" element={<Player />} />
           <Route path="/login" element={<Login />} />
         </Routes>
+
       </main>
     </Router>
     )
