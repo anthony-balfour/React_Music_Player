@@ -23,6 +23,7 @@ export default function Library() {
       setPlaylists(response.data.items);
     })
     .catch(() => {
+      // reloads the page if the token has run out
       window.localStorage.removeItem("access-token");
       window.location.reload();
     })
