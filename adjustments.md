@@ -23,3 +23,8 @@
 
  docker tag local-image:tagname new-repo:tagname
 docker push new-repo:tagname
+
+# Ec2 Instance Port Mapping
+
+Runs on ec2 port of 8004
+Listens on port 3000 for container
