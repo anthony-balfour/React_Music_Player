@@ -5,3 +5,10 @@
   border-radius: 30px;
   display: flex;
 }
+
+/* @media screen and (max-width: 415px) {
+  .main {
+    height: 100px
+  }
+
+} */

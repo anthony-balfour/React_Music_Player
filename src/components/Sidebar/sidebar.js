@@ -36,7 +36,7 @@ export default function Sidebar() {
     <div className="sidebar-container">
       <img className="profile-img" alt="profile headshot" src={icon}></img>
 
-      <section>
+      <section className="sidebar-button-container">
         <SidebarButton title="Feed" to="/feed" icon={<MdSpaceDashboard />}/>
         <SidebarButton title="Trending" to="/trending" icon={<FaGripfire />} />
         <SidebarButton title="Player" to="/player" icon={<FaPlay />} />

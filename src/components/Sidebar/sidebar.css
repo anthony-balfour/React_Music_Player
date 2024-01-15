@@ -18,12 +18,20 @@
 @media screen and (max-width: 415px) {
   .sidebar-container {
     position: fixed;
-    z-index: 10;
+    z-index: 9999;
     bottom: 0;
     width: 100%;
     outline: 2px solid teal;
-    height: 100px;
+    height: 75px;
     flex-direction: row;
+    background-color: #E99D72;
+    align-items: center;
+  }
+
+  .sidebar-button-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .profile-img {
