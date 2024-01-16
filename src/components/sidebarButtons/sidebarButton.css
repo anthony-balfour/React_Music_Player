@@ -36,3 +36,13 @@ a {
 
 /* 415px wide */
 
+@media screen and (max-width: 415px) {
+
+  .button-body {
+    color: white;
+    height: 50px;
+    width: 50px;
+  }
+
+}
+
